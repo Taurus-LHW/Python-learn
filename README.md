@@ -16,8 +16,8 @@
 ### 🗺️ 課程架構與大綱
 本專案包含四大核心關卡，採用「由淺入深、由內而外」的漸進式設計：
 
-* 🏠 **[首頁：進入 Python 新手村大廳](https://taurus-lhw.github.io/Python-learn/index.html)**
-  * **學習目標**：了解課程架構與工廠化學習法的核心精神。
+* 🏠 **[首頁：進入 Python 新手村大廳](https://taurus-lhw.github.io/Python-learn/index.html)** *(💡 貼心提示：建議使用 `Ctrl + 點擊` 或 `滑鼠中鍵` 另開新分頁閱讀，以免離開本頁面喔！)*
+*   * **學習目標**：了解課程架構與工廠化學習法的核心精神。
 
 * 🧰 **[第 1 課：基礎工具箱](https://taurus-lhw.github.io/Python-learn/chapter1.html)**
   * **學習目標**：掌握 Python 的基本物料與收納邏輯。
