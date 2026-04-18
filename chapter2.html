@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第二課：Action 進化史 | 程式碼工廠</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .comic-border {
+            border: 4px solid #111827;
+            box-shadow: 6px 6px 0px 0px rgba(17, 24, 39, 1);
+            transition: all 0.2s ease-in-out;
+        }
+        .comic-border:hover {
+            transform: translateY(-4px);
+            box-shadow: 10px 10px 0px 0px rgba(17, 24, 39, 1);
+        }
+        .jargon-tag {
+            position: absolute;
+            top: -16px;
+            right: 16px;
+            background: #111827;
+            color: #FDE047;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-weight: 900;
+            font-size: 0.875rem;
+            border: 2px solid #111827;
+            z-index: 10;
+        }
+        .station-header {
+            display: inline-block;
+            color: white;
+            font-weight: 900;
+            font-size: 1.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            border: 4px solid #111827;
+            box-shadow: 6px 6px 0px 0px rgba(0,0,0,1);
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans text-gray-900 selection:bg-yellow-300 min-h-screen flex flex-col">
+
+    <!-- 共用導覽列 (Navbar) -->
+    <nav class="bg-gray-900 text-white sticky top-0 z-50 border-b-4 border-gray-900 shadow-md">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <a href="index.html" class="flex items-center gap-2 text-yellow-400 font-black text-xl hover:text-yellow-300 transition">
+                    <i class="fa-solid fa-industry"></i> <span>程式碼工廠</span>
+                </a>
+                <div class="hidden md:flex space-x-4 font-bold text-sm">
+                    <a href="index.html" class="px-3 py-2 rounded-lg hover:bg-gray-700 transition">🏠 首頁</a>
+                    <a href="chapter1.html" class="px-3 py-2 rounded-lg hover:bg-gray-700 transition">第 1 課：基礎工具</a>
+                    <a href="chapter2.html" class="px-3 py-2 rounded-lg bg-yellow-400 text-gray-900 border-2 border-gray-900 shadow-[2px_2px_0px_0px_rgba(255,255,255,0.3)]">第 2 課：Action 進化</a>
+                    <a href="chapter3.html" class="px-3 py-2 rounded-lg hover:bg-gray-700 transition">第 3 課：控制閥</a>
+                    <a href="chapter4.html" class="px-3 py-2 rounded-lg hover:bg-gray-700 transition">第 4 課：Telegram 實戰</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要內容區 -->
+    <main class="flex-grow p-4 md:p-8">
+        <div class="max-w-6xl mx-auto space-y-16 pb-12">
+
+            <!-- 標頭區 -->
+            <header class="relative text-center pt-8 mb-8">
+                <div class="absolute inset-0 bg-gray-900 rotate-1 rounded-3xl"></div>
+                <div class="relative bg-yellow-400 border-4 border-gray-900 rounded-3xl p-8 md:p-12 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                    <h1 class="text-4xl md:text-5xl font-black tracking-tight mb-4 uppercase">
+                        🏭 第二課：廠長的 SOP 進化史
+                    </h1>
+                    <p class="text-xl font-bold text-gray-800 bg-white/70 inline-block px-4 py-2 rounded-lg border-2 border-gray-900 mt-2">
+                        【情境代入】你是一座全自動化處理廠的「廠長」。<br>
+                        你撰寫了名為 Action 的「SOP (程式碼)」，用來指揮廠內的「機器人」運作。
+                    </p>
+                </div>
+            </header>
+
+            <!-- 🌟 課前總覽：SOP 升級對照 -->
+            <section class="bg-gray-800 p-6 md:p-10 rounded-3xl border-4 border-gray-900 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)] relative">
+                <div class="absolute -top-5 left-8 bg-orange-500 text-white font-black text-xl px-4 py-2 rounded-xl border-4 border-gray-900 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transform -rotate-2">
+                    🌟 課前總覽：SOP 升級對照表
+                </div>
+                <p class="mt-4 text-lg font-bold text-gray-300 mb-6">
+                    在開始詳細的課程前，我們先來看看「原本的程式碼」跟「升級後的程式碼」長什麼樣子。<br>
+                    掌握了這個進化框架，後面的細節你就能秒懂！
+                </p>
+                
+                <div class="flex flex-col lg:flex-row gap-6 items-stretch">
+                    <!-- V1.0 -->
+                    <div class="flex-1 bg-gray-50 rounded-2xl border-4 border-gray-900 overflow-hidden flex flex-col">
+                        <div class="bg-blue-300 text-gray-900 font-black p-4 border-b-4 border-gray-900 flex items-center justify-between">
+                            <span class="flex items-center gap-2"><i class="fa-solid fa-box-open"></i> 📝 V1.0 傳統代工</span>
+                            <span class="text-sm bg-white px-2 py-1 rounded border-2 border-gray-900 shadow-[2px_2px_0px_rgba(0,0,0,1)]">原始碼</span>
+                        </div>
+                        <div class="p-5 bg-gray-900 flex-grow text-green-400 font-mono text-sm md:text-base leading-relaxed">
+                            <span class="text-yellow-400">async def</span> action(self, body<span class="text-gray-500">: dict</span>):<br><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-400"># 1. 拿取最新包裹</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;messages <span class="text-pink-500">=</span> body<span class="text-yellow-400">.get</span>("messages", [])<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;last_message <span class="text-pink-500">=</span> messages<span class="text-red-400">[-1]</span><br><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-400"># 2. ❌ 沒過濾氣泡紙，直接算字數</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;msg_len <span class="text-pink-500">=</span> <span class="text-blue-300">len</span>(last_message<span class="text-yellow-400">.get</span>("content", ""))<br><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-400"># 3. ❌ 直接奇異筆塗鴉，客戶沒看到進度</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;last_message["content"] <span class="text-pink-500">+=</span> <span class="text-yellow-300">f</span>"<span class="text-cyan-400">\n</span>長度：<span class="text-yellow-300">{msg_len}</span>"<br><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-red-400 font-bold">return</span> body
+                        </div>
+                    </div>
+
+                    <!-- Arrow -->
+                    <div class="flex items-center justify-center py-4 lg:py-0">
+                        <i class="fa-solid fa-arrow-right-long hidden lg:block text-5xl text-yellow-400 drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]"></i>
+                        <i class="fa-solid fa-arrow-down-long block lg:hidden text-4xl text-yellow-400 drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]"></i>
+                    </div>
+
+                    <!-- V2.0 -->
+                    <div class="flex-1 bg-gray-50 rounded-2xl border-4 border-gray-900 overflow-hidden flex flex-col">
+                        <div class="bg-green-400 text-gray-900 font-black p-4 border-b-4 border-gray-900 flex items-center justify-between">
+                            <span class="flex items-center gap-2"><i class="fa-solid fa-bolt"></i> 🚀 V2.0 智能產線</span>
+                            <span class="text-sm bg-white px-2 py-1 rounded border-2 border-gray-900 shadow-[2px_2px_0px_rgba(0,0,0,1)]">優化碼</span>
+                        </div>
+                        <div class="p-5 bg-gray-900 flex-grow text-green-400 font-mono text-sm md:text-base leading-relaxed">
+                            <span class="text-gray-400"># ✅ 引進新機台 (過濾機與電子秤)</span><br>
+                            <span class="text-yellow-400">import</span> re, tiktoken<br><br>
+                            <span class="text-yellow-400">async def</span> action(self, body<span class="text-gray-500">: dict</span>, <span class="text-indigo-300">__event_emitter__</span>):<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;last_message <span class="text-pink-500">=</span> body<span class="text-yellow-400">.get</span>("messages", [])<span class="text-red-400">[-1]</span><br><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-400"># ✅ 1. 啟用廣播：UI 顯示 Loading</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-yellow-400">await</span> <span class="text-indigo-300">__event_emitter__</span>({"type": "status", "data": {"done": False}})<br><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-400"># ✅ 2. 拆解氣泡紙，精準算 Token</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;display_txt <span class="text-pink-500">=</span> re<span class="text-yellow-400">.sub</span>(r'&lt;think&gt;.*?&lt;/think&gt;', '', ...)<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;tokens <span class="text-pink-500">=</span> <span class="text-blue-300">len</span>(tiktoken<span class="text-yellow-400">...encode</span>(display_txt))<br><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-400"># ✅ 3. 附加結果，並廣播完成</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;last_message["content"] <span class="text-pink-500">+=</span> <span class="text-yellow-300">f</span>"<span class="text-cyan-400">\n</span>Tokens：<span class="text-yellow-300">{tokens}</span>"<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-yellow-400">await</span> <span class="text-indigo-300">__event_emitter__</span>({"type": "status", "data": {"done": True}})<br><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-red-400 font-bold">return</span> body
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 第一階段：SOP 骨架拆解 -->
+            <section class="bg-indigo-50 p-6 md:p-10 rounded-3xl border-4 border-gray-900 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)] relative">
+                <div class="station-header bg-indigo-600 transform -rotate-1">
+                    🧱 第一階段：廠長必修課 (SOP 骨架拆解)
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                    <!-- def -->
+                    <div class="bg-white p-6 rounded-2xl comic-border relative">
+                        <div class="jargon-tag">🏷️ 函式宣告 (def)</div>
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="bg-gray-900 text-white font-mono font-bold px-3 py-1 rounded-lg text-lg">def</span>
+                            <h2 class="text-xl font-black">起草一份 SOP</h2>
+                        </div>
+                        <p class="text-gray-800 font-bold text-sm mb-2">廠長在筆記本上寫下這三個字，表示接下來要寫一段標準作業程序供機器人執行。</p>
+                    </div>
+
+                    <!-- async -->
+                    <div class="bg-white p-6 rounded-2xl comic-border relative">
+                        <div class="jargon-tag">🏷️ 非同步 (Asynchronous)</div>
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="bg-gray-900 text-white font-mono font-bold px-3 py-1 rounded-lg text-lg">async</span>
+                            <h2 class="text-xl font-black">不卡單的聰明員工</h2>
+                        </div>
+                        <p class="text-gray-800 font-bold text-sm mb-2">廠長賦予機器人多工能力，如果這個任務要等很久，機器人會先去處理下一件。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 第二階段：V1.0 傳統代工 -->
+            <section class="bg-blue-50 p-6 md:p-10 rounded-3xl border-4 border-gray-900 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)]">
+                <div class="station-header bg-blue-600 transform rotate-1">
+                    📦 第二階段：V1.0 傳統工廠日常
+                </div>
+                
+                <div class="space-y-6 mt-4">
+                    <!-- Step 1 & 2 -->
+                    <div class="bg-white p-6 rounded-2xl comic-border">
+                        <div class="flex flex-col md:flex-row gap-6">
+                            <div class="md:w-1/2">
+                                <h3 class="text-xl font-black text-gray-900 mb-2"><i class="fa-solid fa-search text-blue-500 mr-2"></i> 檢查貨車與拿取包裹</h3>
+                                <p class="text-sm font-bold text-gray-700 mb-4">工人查看貨車有沒有包裹。沒有的話，觸發 <code>return</code> 緊急下班鍵，直接把空車退回碼頭，絕不浪費時間！</p>
+                                
+                                <div class="border-2 border-red-500 rounded-lg p-3 bg-red-50">
+                                    <h4 class="text-red-700 font-black text-sm mb-1"><i class="fa-solid fa-triangle-exclamation"></i> 工廠災難現場：IndentationError</h4>
+                                    <p class="text-xs font-bold text-gray-700">新手常不小心混入全形空白。對 Python 機器人來說，縮排就像工廠的地板，如果地板不平整（縮排不一致），機器人會直接摔倒當機！</p>
+                                </div>
+                            </div>
+                            <div class="md:w-1/2 bg-gray-900 rounded-xl p-4 text-green-400 font-mono text-sm flex flex-col justify-center">
+                                messages = body.get("messages", [])<br>
+                                <span class="text-gray-400"># 防呆機制：沒包裹就按下緊急下班鍵 (return)</span><br>
+                                <span class="text-yellow-400 font-bold">if not</span> messages:<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-red-400 font-bold">return</span> body<br><br>
+                                last_message = messages<span class="text-red-400">[-1]</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 & 4 -->
+                    <div class="bg-white p-6 rounded-2xl comic-border">
+                        <div class="flex flex-col md:flex-row gap-6">
+                            <div class="md:w-1/2">
+                                <h3 class="text-xl font-black text-gray-900 mb-2"><i class="fa-solid fa-weight-scale text-orange-500 mr-2"></i> 傳統磅秤與奇異筆塗鴉</h3>
+                                <p class="text-sm font-bold text-gray-700 mb-4">把包裹內容放在基礎磅秤 <code>len()</code> 上算字數，然後直接拿奇異筆 <code>+=</code>，把重量硬生生塗寫在客人的包裹外箱上。</p>
+                            </div>
+                            <div class="md:w-1/2 bg-gray-900 rounded-xl p-4 text-green-400 font-mono text-sm flex flex-col justify-center">
+                                message_len = <span class="text-blue-300">len</span>(message_content)<br>
+                                last_message["content"] <span class="text-amber-500 font-black">+=</span> <span class="text-yellow-300">f</span>"\n長度是 <span class="text-yellow-300">{message_len}</span>"
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 第三階段：V2.0 智能工廠 -->
+            <section class="bg-emerald-50 p-6 md:p-10 rounded-3xl border-4 border-gray-900 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)]">
+                <div class="station-header bg-emerald-600 transform -rotate-1 text-white">
+                    🚀 第三階段：V2.0 智能工廠大升級
+                </div>
+                <p class="text-lg font-bold text-gray-700 mb-6">為了解決客訴，廠長引進了新機台與廣播系統，並且架設了除錯監視器：</p>
+                
+                <div class="space-y-6">
+                    <!-- Step 1: Emitter -->
+                    <div class="bg-white p-6 rounded-2xl comic-border">
+                        <div class="flex flex-col md:flex-row gap-6">
+                            <div class="md:w-1/2">
+                                <h3 class="text-xl font-black text-gray-900 mb-2"><i class="fa-solid fa-bolt text-yellow-500 mr-2"></i> 啟用工廠廣播系統</h3>
+                                <p class="text-sm font-bold text-gray-700 mb-4"><code>__event_emitter__</code> 就像是對外大廳的廣播器。發送 <code>{"done": False}</code> 就像是廣播「請稍候」，前端畫面會開始轉圈圈，提升 UX 體驗！</p>
+                            </div>
+                            <div class="md:w-1/2 bg-gray-900 rounded-xl p-4 text-green-400 font-mono text-sm flex flex-col justify-center">
+                                <span class="text-yellow-400 font-bold">await</span> __event_emitter__({<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;"type": "status",<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;"data": {"description": "處理中...", "done": False}<br>
+                                })
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 📺 新增：監視器 vs 廣播器 -->
+                    <div class="bg-white p-6 rounded-2xl comic-border relative">
+                        <div class="jargon-tag">🏷️ 輸出與日誌 (print vs Emitter)</div>
+                        <div class="flex flex-col md:flex-row gap-6 items-center">
+                            <div class="md:w-1/2">
+                                <h3 class="text-xl font-black text-gray-900 mb-2"><i class="fa-solid fa-tv text-purple-500 mr-2"></i> 監視器 vs 廣播器</h3>
+                                <p class="text-sm font-bold text-gray-700 leading-relaxed">
+                                    新手在除錯時最常問：「我要怎麼知道發生了什麼錯誤？」<br><br>
+                                    📺 <strong>廠長監視器 <code>print()</code>：</strong> 印出的字只會顯示在後台 Console，客人看不到。這是廠長自己抓蟲用的神器！<br>
+                                    📻 <strong>大廳廣播 <code>__event_emitter__</code>：</strong> 對著前台大廳發送，客人的視窗會彈出通知或轉圈圈。
+                                </p>
+                            </div>
+                            <div class="md:w-1/2 bg-gray-900 rounded-xl p-4 text-green-400 font-mono text-sm flex flex-col justify-center w-full">
+                                <span class="text-gray-400"># 廠長在後台偷看數值，前台不會顯示</span><br>
+                                <span class="text-blue-300">print</span>(<span class="text-yellow-300">f</span>"目前算出來的 Token 是: <span class="text-pink-400">{tokens}</span>")
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <div class="flex justify-end mt-12">
+                <a href="chapter3.html" class="inline-flex items-center gap-3 bg-gray-900 text-yellow-400 font-black text-lg px-8 py-4 rounded-2xl border-4 border-gray-900 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all">
+                    前往下一課：控制閥與品管局 <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- 共用頁尾 (Footer) -->
+    <footer class="bg-gray-900 text-white py-8 border-t-4 border-gray-900 mt-auto">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col items-center justify-center gap-4">
+            
+            <p class="text-yellow-400 font-black text-lg"><i class="fa-solid fa-industry"></i> 程式碼工廠 Python 新手村</p>
+            
+            <!-- Buy Me A Coffee Button -->
+            <a href="https://buymeacoffee.com/taurus.lhw" target="_blank" rel="noopener noreferrer" class="transform hover:-translate-y-1 hover:scale-105 transition-all duration-200">
+                <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" class="h-10 w-auto rounded-lg shadow-lg">
+            </a>
+
+            <p class="text-gray-500 font-bold font-mono text-xs">made by liang.hw @2026</p>
+            
+        </div>
+    </footer>
+
+</body>
+</html>

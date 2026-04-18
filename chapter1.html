@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第一課：基礎工具箱 | 程式碼工廠</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .comic-border {
+            border: 4px solid #111827;
+            box-shadow: 6px 6px 0px 0px rgba(17, 24, 39, 1);
+            transition: all 0.2s ease-in-out;
+        }
+        .comic-border:hover {
+            transform: translateY(-4px);
+            box-shadow: 10px 10px 0px 0px rgba(17, 24, 39, 1);
+        }
+        .jargon-tag {
+            position: absolute;
+            top: -16px;
+            right: 16px;
+            background: #111827;
+            color: #FDE047;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-weight: 900;
+            font-size: 0.875rem;
+            border: 2px solid #111827;
+            z-index: 10;
+        }
+        .station-header {
+            display: inline-block;
+            color: white;
+            font-weight: 900;
+            font-size: 1.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            border: 4px solid #111827;
+            box-shadow: 6px 6px 0px 0px rgba(0,0,0,1);
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans text-gray-900 selection:bg-yellow-300 min-h-screen flex flex-col">
+
+    <!-- 共用導覽列 (Navbar) -->
+    <nav class="bg-gray-900 text-white sticky top-0 z-50 border-b-4 border-gray-900 shadow-md">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <a href="index.html" class="flex items-center gap-2 text-yellow-400 font-black text-xl hover:text-yellow-300 transition">
+                    <i class="fa-solid fa-industry"></i> <span>程式碼工廠</span>
+                </a>
+                <div class="hidden md:flex space-x-4 font-bold text-sm">
+                    <a href="index.html" class="px-3 py-2 rounded-lg hover:bg-gray-700 transition">🏠 首頁</a>
+                    <a href="chapter1.html" class="px-3 py-2 rounded-lg bg-yellow-400 text-gray-900 border-2 border-gray-900 shadow-[2px_2px_0px_0px_rgba(255,255,255,0.3)]">第 1 課：基礎工具</a>
+                    <a href="chapter2.html" class="px-3 py-2 rounded-lg hover:bg-gray-700 transition">第 2 課：Action 進化</a>
+                    <a href="chapter3.html" class="px-3 py-2 rounded-lg hover:bg-gray-700 transition">第 3 課：控制閥</a>
+                    <a href="chapter4.html" class="px-3 py-2 rounded-lg hover:bg-gray-700 transition">第 4 課：Telegram 實戰</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要內容區 -->
+    <main class="flex-grow p-4 md:p-8">
+        <div class="max-w-6xl mx-auto space-y-16 pb-12">
+
+            <!-- 標頭區 -->
+            <header class="relative text-center pt-8 mb-8">
+                <div class="absolute inset-0 bg-gray-900 rotate-1 rounded-3xl"></div>
+                <div class="relative bg-yellow-400 border-4 border-gray-900 rounded-3xl p-8 md:p-12 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                    <h1 class="text-4xl md:text-5xl font-black tracking-tight mb-4 uppercase">
+                        🧰 第一課：工廠基礎工具箱
+                    </h1>
+                    <p class="text-xl font-bold text-gray-800 bg-white/70 inline-block px-4 py-2 rounded-lg border-2 border-gray-900 mt-2">
+                        在寫出自動化腳本前，我們先來認識工廠裡的<br>「貼紙 (=)」、「置物櫃 (List)」、「分類箱 (Dict)」與「自動分流系統」！
+                    </p>
+                </div>
+            </header>
+
+            <!-- 🌐 課前須知 -->
+            <section class="bg-gray-900 p-8 rounded-3xl border-4 border-gray-800 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)] relative text-white">
+                <div class="absolute -top-5 left-8 bg-red-500 text-white font-black text-xl px-4 py-2 rounded-xl border-4 border-gray-900 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transform -rotate-2">
+                    🌐 課前須知：這座工廠的「官方語言」
+                </div>
+                <div class="mt-4 flex flex-col md:flex-row gap-6 items-start">
+                    <div class="flex-1 space-y-4">
+                        <p class="font-bold text-lg text-yellow-300 mt-2">
+                            新手最常問：「我在這裡學的符號，可以貼到 HTML 網頁上用嗎？」<br>
+                            答案是：<span class="text-red-400 text-2xl font-black bg-red-900/50 px-2 rounded">絕對不行！</span>
+                        </p>
+                        <p class="text-gray-300 font-bold leading-relaxed">
+                            我們接下來學的 <code>def</code>、<code>#</code>、<code>dict</code> 全部都是 <strong class="text-blue-400">Python</strong> 這門語言的「專屬 SOP」。請不要把它們拿去 HTML 或 JavaScript 的工廠裡用喔！
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 第一站：基本物料與標籤 -->
+            <section class="bg-purple-50 p-6 md:p-10 rounded-3xl border-4 border-gray-900 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)]">
+                <div class="station-header bg-purple-500 transform -rotate-1">
+                    📦 第一站：變數、字串與賦值標籤
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
+                    <div class="bg-white p-6 rounded-2xl comic-border relative">
+                        <div class="jargon-tag">🏷️ 變數 vs 字串 (Variable vs String)</div>
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-12 h-12 bg-purple-100 border-4 border-gray-900 rounded-full flex items-center justify-center text-2xl font-black text-purple-600"><i class="fa-solid fa-truck"></i></div>
+                            <h2 class="text-xl font-black">實體貨車 vs 文字便條紙</h2>
+                        </div>
+                        <p class="font-bold text-gray-700 text-sm mb-4">
+                            程式裡的 <code>body</code> 沒有引號，它代表「名為 body 的真實貨車」。<br>
+                            如果有引號 <code>"body"</code>，機器人就會把它當成「寫著四個字母的便條紙」。忘記加引號會導致 <code>NameError</code>！
+                        </p>
+                        <div class="bg-gray-900 text-green-400 p-3 rounded-xl font-mono text-xs border-2 border-gray-700">
+                            print(<span class="text-pink-400">"Hello"</span>) <span class="text-gray-400"># 印出文字</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl comic-border relative">
+                        <div class="jargon-tag">🏷️ 賦值 (Assignment)</div>
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-12 h-12 bg-blue-100 border-4 border-gray-900 rounded-full flex items-center justify-center text-2xl font-black text-blue-600">=</div>
+                            <h2 class="text-xl font-black">「=」不是等於，是貼標籤</h2>
+                        </div>
+                        <p class="font-bold text-gray-700 text-sm mb-4">
+                            廠長拿出一張寫著名稱的貼紙，貼在內容物上。口訣：<strong class="text-blue-600">將右邊的東西，裝進左邊的箱子裡！</strong>
+                        </p>
+                        
+                        <!-- 💡 廠長秘訣 -->
+                        <div class="bg-blue-50 border-2 border-blue-300 rounded-lg p-3 mb-4">
+                            <h4 class="text-blue-800 font-black text-sm mb-1"><i class="fa-solid fa-lightbulb text-yellow-500"></i> 廠長秘訣：等於要寫兩個！</h4>
+                            <p class="text-xs font-bold text-gray-700">要讓機器人做「數學判斷」(是否相等)，必須寫兩個等號 <code>==</code>，不然機器人會把值硬塞進箱子裡當機！</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 第二站：加工與文字處理 -->
+            <section class="bg-orange-50 p-6 md:p-10 rounded-3xl border-4 border-gray-900 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)]">
+                <div class="station-header bg-orange-500 transform rotate-1">
+                    🧮 第二站：加工與文字處理
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
+                    <div class="bg-white p-6 rounded-2xl comic-border relative">
+                        <div class="jargon-tag">🏷️ 複合賦值 (+=)</div>
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-12 h-12 bg-amber-100 border-4 border-gray-900 rounded-full flex items-center justify-center text-2xl font-black text-amber-600">+=</div>
+                            <h2 class="text-xl font-black">原箱加工大法 (+=)</h2>
+                        </div>
+                        <p class="font-bold text-gray-700 text-sm mb-4">
+                            <code>+</code> 遇到文字會變成「強力膠水」。<br>
+                            <code>+=</code> 則是捷徑：<strong>「直接在原本的箱子裡面，把新東西黏到尾巴上」。</strong>
+                        </p>
+                        <div class="bg-gray-900 text-green-400 p-3 rounded-xl font-mono text-xs border-2 border-gray-700">
+                            msg <span class="text-amber-500 font-black text-base">+=</span> "\n長度100"
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl comic-border relative">
+                        <div class="jargon-tag">🏷️ 字串格式化 (f-string)</div>
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-12 h-12 bg-yellow-100 border-4 border-gray-900 rounded-full flex items-center justify-center text-2xl font-black text-yellow-600">f" "</div>
+                            <h2 class="text-xl font-black">神奇的高級便條紙 (f)</h2>
+                        </div>
+                        <p class="font-bold text-gray-700 text-sm mb-4">
+                            加了 <code>f</code> 的字串，可以在裡面用 <strong class="text-pink-500">{ } 挖洞</strong>，把變數或數字直接塞進去！不怕文字跟數字黏在一起引發 <code>TypeError</code>。
+                        </p>
+                        <div class="bg-gray-900 text-green-400 p-3 rounded-xl font-mono text-xs border-2 border-gray-700">
+                            text = <span class="text-yellow-300 font-bold">f</span>"長度是 <span class="text-pink-400 font-bold">{</span>100<span class="text-pink-400 font-bold">}</span> 字"
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 第三站：工廠的收納系統 -->
+            <section class="bg-emerald-50 p-6 md:p-10 rounded-3xl border-4 border-gray-900 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)]">
+                <div class="station-header bg-emerald-500 transform -rotate-1">
+                    🗄️ 第三站：工廠的雙重收納系統
+                </div>
+                
+                <div class="space-y-8 mt-4">
+                    <div class="bg-white p-6 md:p-8 rounded-2xl comic-border relative flex flex-col md:flex-row gap-8 items-start">
+                        <div class="jargon-tag">🏷️ 陣列與字典 (List & Dict)</div>
+                        <div class="md:w-1/2 space-y-4">
+                            <div>
+                                <h2 class="text-xl font-black mb-2 flex items-center gap-2"><i class="fa-solid fa-lock text-indigo-500"></i> 排隊置物櫃 [ ]</h2>
+                                <p class="font-bold text-gray-700 text-sm bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+                                    <strong class="text-red-600">超級捷徑 <code>[-1]</code></strong> 代表從後面數過來第 1 個。拿錯號碼牌會發生 <code>IndexError</code>！
+                                </p>
+                            </div>
+                            <div>
+                                <h2 class="text-xl font-black mb-2 flex items-center gap-2"><i class="fa-solid fa-boxes-stacked text-emerald-500"></i> 分類標籤箱 { }</h2>
+                                <p class="font-bold text-gray-700 text-sm bg-emerald-50 p-3 rounded-lg border border-emerald-200">
+                                    用 <code>.get("標籤", [])</code> 安全取件，找不到就給空箱子，避免直接拿引發 <code>KeyError</code> 當機！
+                                </p>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2 bg-gray-900 rounded-xl p-4 border-4 border-gray-800 w-full h-full flex flex-col justify-center">
+                            <pre class="text-green-400 font-mono text-sm whitespace-pre-wrap leading-relaxed">
+<span class="text-gray-400"># 從置物櫃拿最新的一句</span>
+last_msg = messages<span class="text-red-400 font-black">[-1]</span>
+
+<span class="text-gray-400"># 安全從分類箱拿 messages</span>
+msgs = body<span class="text-yellow-400 font-black">.get</span>("messages", [])
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 第四站：流程控制 (新增) -->
+            <section class="bg-slate-100 p-6 md:p-10 rounded-3xl border-4 border-gray-900 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)]">
+                <div class="station-header bg-slate-700 transform rotate-1 text-white">
+                    🚦 第四站：工廠流程控制 (判斷與出貨)
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
+                    <!-- if / else 分流 -->
+                    <div class="bg-white p-6 rounded-2xl comic-border relative">
+                        <div class="jargon-tag">🏷️ 條件判斷 (if / else)</div>
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-12 h-12 bg-slate-200 border-4 border-gray-900 rounded-full flex items-center justify-center text-xl font-black text-slate-700"><i class="fa-solid fa-code-branch"></i></div>
+                            <h2 class="text-xl font-black">自動分流輸送帶</h2>
+                        </div>
+                        <p class="font-bold text-gray-700 text-sm mb-4 leading-relaxed">
+                            工廠的包裹需要分類。如果 (<code>if</code>) 條件符合 (布林值為 <strong class="text-green-600">True</strong> 亮綠燈)，就走左邊輸送帶。<br>
+                            不然如果 (<code>elif</code>) 條件符合，走中間。<br>
+                            否則 (<code>else</code>) 亮紅燈 (<strong class="text-red-600">False</strong>)，一律丟進垃圾桶。
+                        </p>
+                        <div class="bg-gray-900 text-green-400 p-3 rounded-xl font-mono text-xs border-2 border-gray-700">
+                            <span class="text-yellow-400 font-bold">if</span> status <span class="text-pink-500 font-black">==</span> 200:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;print("成功送達！")<br>
+                            <span class="text-yellow-400 font-bold">else</span>:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;print("出錯了！")
+                        </div>
+                    </div>
+
+                    <!-- return 強制下班 -->
+                    <div class="bg-white p-6 rounded-2xl comic-border relative">
+                        <div class="jargon-tag">🏷️ 函式回傳 (return)</div>
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-12 h-12 bg-red-100 border-4 border-gray-900 rounded-full flex items-center justify-center text-xl font-black text-red-600"><i class="fa-solid fa-person-walking-arrow-right"></i></div>
+                            <h2 class="text-xl font-black">出貨碼頭與強制下班鍵</h2>
+                        </div>
+                        <p class="font-bold text-gray-700 text-sm mb-4 leading-relaxed">
+                            <code>return</code> 就像是工廠的「緊急下班鍵」！機器人只要一碰到這個指令，就會<strong>立刻把東西交給碼頭出貨，然後瞬間下班</strong>！<br>
+                            寫在 <code>return</code> 後面的任何程式碼，機器人都絕對不會去執行它。
+                        </p>
+                        <div class="bg-gray-900 text-green-400 p-3 rounded-xl font-mono text-xs border-2 border-gray-700">
+                            <span class="text-yellow-400 font-bold">if not</span> messages: <span class="text-gray-400"># 沒包裹</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-red-400 font-bold">return</span> None <span class="text-gray-400"># 直接下班不做了！</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <div class="flex justify-end mt-12">
+                <a href="chapter2.html" class="inline-flex items-center gap-3 bg-gray-900 text-yellow-400 font-black text-lg px-8 py-4 rounded-2xl border-4 border-gray-900 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all">
+                    前往下一課：Action 進化史 <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- 共用頁尾 (Footer) -->
+    <footer class="bg-gray-900 text-white py-8 border-t-4 border-gray-900 mt-auto">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col items-center justify-center gap-4">
+            
+            <p class="text-yellow-400 font-black text-lg"><i class="fa-solid fa-industry"></i> 程式碼工廠 Python 新手村</p>
+            
+            <!-- Buy Me A Coffee Button -->
+            <a href="https://buymeacoffee.com/taurus.lhw" target="_blank" rel="noopener noreferrer" class="transform hover:-translate-y-1 hover:scale-105 transition-all duration-200">
+                <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" class="h-10 w-auto rounded-lg shadow-lg">
+            </a>
+
+            <p class="text-gray-500 font-bold font-mono text-xs">made by liang.hw @2026</p>
+            
+        </div>
+    </footer>
+
+</body>
+</html>

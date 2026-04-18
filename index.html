@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>程式碼工廠 | Python 新手村總覽</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .comic-border {
+            border: 4px solid #111827;
+            box-shadow: 6px 6px 0px 0px rgba(17, 24, 39, 1);
+            transition: all 0.2s ease-in-out;
+        }
+        .comic-border:hover {
+            transform: translateY(-4px);
+            box-shadow: 10px 10px 0px 0px rgba(17, 24, 39, 1);
+        }
+        .floating-badge {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans text-gray-900 selection:bg-yellow-300 min-h-screen flex flex-col">
+
+    <!-- 導覽列 (Navbar) -->
+    <nav class="bg-gray-900 text-white sticky top-0 z-50 border-b-4 border-gray-900 shadow-md">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-2 text-yellow-400 font-black text-xl hover:text-yellow-300 transition">
+                    <i class="fa-solid fa-industry"></i>
+                    <span>程式碼工廠</span>
+                </a>
+                
+                <!-- Links (桌機版) -->
+                <div class="hidden md:flex space-x-4 font-bold text-sm">
+                    <a href="index.html" class="px-3 py-2 rounded-lg bg-yellow-400 text-gray-900 border-2 border-gray-900 shadow-[2px_2px_0px_0px_rgba(255,255,255,0.3)]">🏠 首頁</a>
+                    <a href="chapter1.html" class="px-3 py-2 rounded-lg hover:bg-gray-700 transition">第 1 課：基礎工具</a>
+                    <a href="chapter2.html" class="px-3 py-2 rounded-lg hover:bg-gray-700 transition">第 2 課：Action 進化</a>
+                    <a href="chapter3.html" class="px-3 py-2 rounded-lg hover:bg-gray-700 transition">第 3 課：控制閥</a>
+                    <a href="chapter4.html" class="px-3 py-2 rounded-lg hover:bg-gray-700 transition">第 4 課：Telegram 實戰</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要內容區 -->
+    <main class="flex-grow p-4 md:p-8">
+        <div class="max-w-5xl mx-auto space-y-16 pb-12">
+            
+            <!-- Hero Section (重構提升動機) -->
+            <div class="text-center relative pt-8 mt-4">
+                <div class="absolute inset-0 bg-gray-900 rotate-1 rounded-3xl"></div>
+                <div class="relative bg-yellow-400 border-4 border-gray-900 rounded-3xl p-8 md:p-12 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]">
+                    <div class="floating-badge inline-block bg-red-500 text-white font-black px-4 py-1 rounded-full border-2 border-gray-900 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] mb-4 transform -rotate-2">
+                        🚀 從 0 到 1 打造你的 AI 自動化腳本
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-black text-gray-900 tracking-tight mb-6 uppercase">
+                        歡迎進入 <span class="text-white text-shadow-sm" style="text-shadow: 2px 2px 0 #111827, -2px -2px 0 #111827, 2px -2px 0 #111827, -2px 2px 0 #111827;">程式碼工廠</span>
+                    </h1>
+                    <p class="text-xl font-bold text-gray-800 bg-white/80 inline-block px-6 py-3 rounded-xl border-4 border-gray-900 mb-8 max-w-3xl leading-relaxed">
+                        受夠了天書般的官方教學與枯燥的語法名詞嗎？<br>
+                        在這裡，我們把 <strong class="text-blue-600">Python 程式碼</strong> 變成了生動的 <strong class="text-orange-600">工廠 SOP</strong>。<br>化身廠長，跟著我們一步步破解神秘的程式邏輯！
+                    </p>
+                    <div>
+                        <a href="#quests" class="inline-block bg-gray-900 text-yellow-400 font-black text-xl px-8 py-4 rounded-2xl border-4 border-gray-900 hover:-translate-y-1 hover:bg-gray-800 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all">
+                            接取任務，開始破關！ <i class="fa-solid fa-gamepad ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 核心技能大綱 (新增：讓學員知道學完能得到什麼) -->
+            <section class="bg-white p-8 rounded-3xl comic-border">
+                <h2 class="text-3xl font-black text-center mb-8"><i class="fa-solid fa-map-location-dot text-emerald-500 mr-2"></i> 破關後，你將解鎖的核心技能</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <div class="p-4 bg-blue-50 rounded-2xl border-2 border-blue-200">
+                        <div class="w-16 h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center text-3xl mb-4 border-2 border-blue-300">🐍</div>
+                        <h3 class="font-black text-lg text-blue-900 mb-2">看懂 Python 語法結構</h3>
+                        <p class="font-bold text-gray-600 text-sm">再也不怕 Dict、List、def、class。看懂變數收納與物件導向的底層邏輯。</p>
+                    </div>
+                    <div class="p-4 bg-pink-50 rounded-2xl border-2 border-pink-200">
+                        <div class="w-16 h-16 mx-auto bg-pink-100 rounded-full flex items-center justify-center text-3xl mb-4 border-2 border-pink-300">🛡️</div>
+                        <h3 class="font-black text-lg text-pink-900 mb-2">建立安全防呆機制</h3>
+                        <p class="font-bold text-gray-600 text-sm">學會使用 Pydantic 與 Try-Except，讓你的程式碼像裝了防護罩一樣不當機。</p>
+                    </div>
+                    <div class="p-4 bg-amber-50 rounded-2xl border-2 border-amber-200">
+                        <div class="w-16 h-16 mx-auto bg-amber-100 rounded-full flex items-center justify-center text-3xl mb-4 border-2 border-amber-300">⚡</div>
+                        <h3 class="font-black text-lg text-amber-900 mb-2">掌握高階非同步連線</h3>
+                        <p class="font-bold text-gray-600 text-sm">征服最難的 async/await 與 aiohttp，成功將你的腳本與 Telegram 外部世界連線！</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 課程目錄 Grid (RPG 任務板) -->
+            <section id="quests" class="pt-4">
+                <div class="inline-block bg-gray-900 text-white font-black text-2xl px-6 py-3 rounded-xl border-4 border-gray-900 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] mb-8 transform -rotate-1">
+                    📜 廠長任務佈告欄
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    
+                    <!-- Ch1 -->
+                    <a href="chapter1.html" class="block bg-indigo-50 p-6 rounded-3xl comic-border relative group overflow-hidden">
+                        <div class="absolute -right-6 -top-6 text-indigo-200 opacity-50 transform rotate-12 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-toolbox text-9xl"></i>
+                        </div>
+                        <div class="flex justify-between items-start relative z-10 mb-4">
+                            <span class="inline-block bg-indigo-600 text-white font-black px-3 py-1 rounded-lg border-2 border-gray-900">Lv.1 第一課</span>
+                            <span class="text-indigo-800 font-bold text-sm bg-indigo-200 px-2 py-1 rounded border border-indigo-300"><i class="fa-solid fa-clock"></i> 5 min</span>
+                        </div>
+                        <h2 class="text-2xl font-black text-gray-900 mb-2 relative z-10">基礎工具箱</h2>
+                        <p class="font-bold text-gray-700 relative z-10 mb-4">認識變數、賦值、List 置物櫃、Dict 分類箱，以及各種類型的符號與標籤。</p>
+                        <div class="font-black text-indigo-600 group-hover:translate-x-2 transition-transform relative z-10">進入關卡 <i class="fa-solid fa-arrow-right"></i></div>
+                    </a>
+
+                    <!-- Ch2 -->
+                    <a href="chapter2.html" class="block bg-blue-50 p-6 rounded-3xl comic-border relative group overflow-hidden">
+                        <div class="absolute -right-6 -top-6 text-blue-200 opacity-50 transform rotate-12 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-robot text-9xl"></i>
+                        </div>
+                        <div class="flex justify-between items-start relative z-10 mb-4">
+                            <span class="inline-block bg-blue-600 text-white font-black px-3 py-1 rounded-lg border-2 border-gray-900">Lv.2 第二課</span>
+                            <span class="text-blue-800 font-bold text-sm bg-blue-200 px-2 py-1 rounded border border-blue-300"><i class="fa-solid fa-clock"></i> 8 min</span>
+                        </div>
+                        <h2 class="text-2xl font-black text-gray-900 mb-2 relative z-10">Action 進化史</h2>
+                        <p class="font-bold text-gray-700 relative z-10 mb-4">看懂 <code>def action()</code> 的整體骨架，了解傳統代工缺點與智能產線的優化。</p>
+                        <div class="font-black text-blue-600 group-hover:translate-x-2 transition-transform relative z-10">進入關卡 <i class="fa-solid fa-arrow-right"></i></div>
+                    </a>
+
+                    <!-- Ch3 -->
+                    <a href="chapter3.html" class="block bg-pink-50 p-6 rounded-3xl comic-border relative group overflow-hidden">
+                        <div class="absolute -right-6 -top-6 text-pink-200 opacity-50 transform rotate-12 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-sliders text-9xl"></i>
+                        </div>
+                        <div class="flex justify-between items-start relative z-10 mb-4">
+                            <span class="inline-block bg-pink-600 text-white font-black px-3 py-1 rounded-lg border-2 border-gray-900">Lv.3 第三課</span>
+                            <span class="text-pink-800 font-bold text-sm bg-pink-200 px-2 py-1 rounded border border-pink-300"><i class="fa-solid fa-clock"></i> 10 min</span>
+                        </div>
+                        <h2 class="text-2xl font-black text-gray-900 mb-2 relative z-10">控制閥與品管局</h2>
+                        <p class="font-bold text-gray-700 relative z-10 mb-4">學習如何設計給前端客人填寫的表單面板！看懂 Pydantic、class 藍圖與 Field。</p>
+                        <div class="font-black text-pink-600 group-hover:translate-x-2 transition-transform relative z-10">進入關卡 <i class="fa-solid fa-arrow-right"></i></div>
+                    </a>
+
+                    <!-- Ch4 -->
+                    <a href="chapter4.html" class="block bg-emerald-50 p-6 rounded-3xl comic-border relative group overflow-hidden">
+                        <div class="absolute -right-6 -top-6 text-emerald-200 opacity-50 transform rotate-12 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-paper-plane text-9xl"></i>
+                        </div>
+                        <div class="flex justify-between items-start relative z-10 mb-4">
+                            <span class="inline-block bg-emerald-600 text-white font-black px-3 py-1 rounded-lg border-2 border-gray-900">Lv.Max 最終戰</span>
+                            <span class="text-emerald-800 font-bold text-sm bg-emerald-200 px-2 py-1 rounded border border-emerald-300"><i class="fa-solid fa-clock"></i> 15 min</span>
+                        </div>
+                        <h2 class="text-2xl font-black text-gray-900 mb-2 relative z-10">Telegram 實戰篇</h2>
+                        <p class="font-bold text-gray-700 relative z-10 mb-4">跨出工廠！學習機器的自我意識 (self)、非同步外部郵局與防爆罩 (try-except)。</p>
+                        <div class="font-black text-emerald-600 group-hover:translate-x-2 transition-transform relative z-10">挑戰魔王 <i class="fa-solid fa-arrow-right"></i></div>
+                    </a>
+
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- 共用頁尾 (Footer) -->
+    <footer class="bg-gray-900 text-white py-8 border-t-4 border-gray-900 mt-auto">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col items-center justify-center gap-4">
+            
+            <p class="text-yellow-400 font-black text-lg"><i class="fa-solid fa-industry"></i> 程式碼工廠 Python 新手村</p>
+            
+            <!-- Buy Me A Coffee Button -->
+            <a href="https://buymeacoffee.com/taurus.lhw" target="_blank" rel="noopener noreferrer" class="transform hover:-translate-y-1 hover:scale-105 transition-all duration-200">
+                <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" class="h-10 w-auto rounded-lg shadow-lg">
+            </a>
+
+            <p class="text-gray-500 font-bold font-mono text-xs">made by liang.hw @2026</p>
+            
+        </div>
+    </footer>
+
+</body>
+</html>

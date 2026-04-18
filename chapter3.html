@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第三課：控制閥與品管局 | 程式碼工廠</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .comic-border {
+            border: 4px solid #111827;
+            box-shadow: 6px 6px 0px 0px rgba(17, 24, 39, 1);
+            transition: all 0.2s ease-in-out;
+        }
+        .comic-border:hover {
+            transform: translateY(-4px);
+            box-shadow: 10px 10px 0px 0px rgba(17, 24, 39, 1);
+        }
+        .jargon-tag {
+            position: absolute;
+            top: -16px;
+            right: 16px;
+            background: #111827;
+            color: #FDE047;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-weight: 900;
+            font-size: 0.875rem;
+            border: 2px solid #111827;
+            z-index: 10;
+        }
+        .station-header {
+            display: inline-block;
+            color: white;
+            font-weight: 900;
+            font-size: 1.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            border: 4px solid #111827;
+            box-shadow: 6px 6px 0px 0px rgba(0,0,0,1);
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans text-gray-900 selection:bg-yellow-300 min-h-screen flex flex-col">
+
+    <!-- 共用導覽列 (Navbar) -->
+    <nav class="bg-gray-900 text-white sticky top-0 z-50 border-b-4 border-gray-900 shadow-md">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <a href="index.html" class="flex items-center gap-2 text-yellow-400 font-black text-xl hover:text-yellow-300 transition">
+                    <i class="fa-solid fa-industry"></i> <span>程式碼工廠</span>
+                </a>
+                <div class="hidden md:flex space-x-4 font-bold text-sm">
+                    <a href="index.html" class="px-3 py-2 rounded-lg hover:bg-gray-700 transition">🏠 首頁</a>
+                    <a href="chapter1.html" class="px-3 py-2 rounded-lg hover:bg-gray-700 transition">第 1 課：基礎工具</a>
+                    <a href="chapter2.html" class="px-3 py-2 rounded-lg hover:bg-gray-700 transition">第 2 課：Action 進化</a>
+                    <a href="chapter3.html" class="px-3 py-2 rounded-lg bg-yellow-400 text-gray-900 border-2 border-gray-900 shadow-[2px_2px_0px_0px_rgba(255,255,255,0.3)]">第 3 課：控制閥</a>
+                    <a href="chapter4.html" class="px-3 py-2 rounded-lg hover:bg-gray-700 transition">第 4 課：Telegram 實戰</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要內容區 -->
+    <main class="flex-grow p-4 md:p-8">
+        <div class="max-w-6xl mx-auto space-y-16 pb-12">
+
+            <!-- 標頭區 -->
+            <header class="relative text-center pt-8 mb-8">
+                <div class="absolute inset-0 bg-gray-900 rotate-1 rounded-3xl"></div>
+                <div class="relative bg-yellow-400 border-4 border-gray-900 rounded-3xl p-8 md:p-12 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                    <h1 class="text-4xl md:text-5xl font-black tracking-tight mb-4 uppercase">
+                        🏭 第三課：控制閥與品管局
+                    </h1>
+                    <p class="text-xl font-bold text-gray-800 bg-white/70 inline-block px-4 py-2 rounded-lg border-2 border-gray-900 mt-2">
+                        學會了基本工具，今天廠長要來設計機台的「設定面板」！<br>看懂 Pydantic、Class 藍圖與 Valves 控制閥的完美組合。
+                    </p>
+                </div>
+            </header>
+
+            <!-- 課前總覽 -->
+            <section class="bg-gray-800 p-6 md:p-10 rounded-3xl border-4 border-gray-900 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)] relative text-white">
+                <div class="absolute -top-5 left-8 bg-blue-500 text-white font-black text-xl px-4 py-2 rounded-xl border-4 border-gray-900 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transform -rotate-2">
+                    📸 本次任務目標：看懂這段面板代碼
+                </div>
+                <p class="mt-4 text-gray-300 font-bold mb-4">
+                    這段程式碼在 AI 代理系統中非常常見，它是用來建立「使用者設定介面」的核心基石。我們將一行一行拆解它！
+                </p>
+                <div class="bg-gray-900 rounded-xl p-6 border-4 border-gray-700 font-mono text-lg text-green-400 shadow-inner overflow-x-auto">
+                    <span class="text-yellow-400">from</span> pydantic <span class="text-yellow-400">import</span> BaseModel<br><br>
+                    <span class="text-yellow-400">class</span> <span class="text-blue-300">Valves</span>(BaseModel):<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;nickname<span class="text-gray-400">: str =</span> <span class="text-pink-400">"xxxxx"</span><br><br>
+                    valves <span class="text-pink-500">=</span> Valves()<br>
+                    valves<span class="text-yellow-400">.</span>nickname <span class="text-gray-500"># 結果會顯示 'xxxxx'</span>
+                </div>
+            </section>
+
+            <!-- 第一站：引進嚴格品管 -->
+            <section class="bg-indigo-50 p-6 md:p-10 rounded-3xl border-4 border-gray-900 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)]">
+                <div class="station-header bg-indigo-500 transform -rotate-1">
+                    🕵️ 第一站：引進嚴格品管局 (Pydantic)
+                </div>
+
+                <div class="bg-white p-6 md:p-8 rounded-2xl comic-border relative">
+                    <div class="jargon-tag">🏷️ 資料驗證套件 (Pydantic)</div>
+                    <div class="flex flex-col md:flex-row gap-8 items-start">
+                        <div class="md:w-1/2">
+                            <h2 class="text-2xl font-black mb-4 flex items-center gap-2"><i class="fa-solid fa-clipboard-check text-indigo-500"></i> Pydantic 與 BaseModel</h2>
+                            <p class="font-bold text-gray-700 mb-4 bg-indigo-50 p-4 rounded-lg border border-indigo-200 leading-relaxed">
+                                廠長要設計一個給客人填資料的設定面板，但怕客人亂填（要求填文字，客人卻填數字 123），導致後面的機器當機。<br><br>
+                                於是他引進了 <strong class="text-indigo-600">Pydantic (嚴格的國家品管局)</strong> 的一套 <strong class="text-blue-600">BaseModel (標準安全表單)</strong>。只要用這套表單設計面板，品管局就會自動幫你檢查格式！
+                            </p>
+                            
+                            <!-- 🚨 災難現場 -->
+                            <div class="border-2 border-red-500 rounded-lg p-3 bg-red-50">
+                                <h4 class="text-red-700 font-black text-sm mb-1"><i class="fa-solid fa-triangle-exclamation"></i> 工廠災難現場：ValidationError</h4>
+                                <p class="text-xs font-bold text-gray-700">如果沒有 Pydantic，客人填錯格式，毒包裹會直接送進產線引發大爆炸。有了 BaseModel，如果客人亂填，品管局會在門口直接響起警報 <code>ValidationError</code> 退回包裹，保護工廠安全！</p>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2 bg-gray-900 text-green-400 p-4 rounded-xl font-mono text-sm border-4 border-gray-800 w-full h-full flex flex-col justify-center">
+                            <pre class="whitespace-pre-wrap leading-relaxed">
+<span class="text-gray-400"># 🏭 從 (from) 品管局 (pydantic) 
+# 🚚 引進 (import) 標準安全表單 (BaseModel)</span>
+<span class="text-yellow-400 font-bold">from</span> pydantic <span class="text-yellow-400 font-bold">import</span> BaseModel
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 第二站：畫出面板藍圖 -->
+            <section class="bg-pink-50 p-6 md:p-10 rounded-3xl border-4 border-gray-900 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)]">
+                <div class="station-header bg-pink-500 transform rotate-1">
+                    📐 第二站：畫出控制閥藍圖 (Class Valves)
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Class Valves -->
+                    <div class="bg-white p-6 rounded-2xl comic-border relative">
+                        <div class="jargon-tag">🏷️ 類別繼承 (Class)</div>
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-12 h-12 bg-pink-100 border-4 border-gray-900 rounded-full flex items-center justify-center text-2xl font-black text-pink-600"><i class="fa-solid fa-pen-ruler"></i></div>
+                            <h2 class="text-xl font-black">畫一張叫 Valves 的圖紙</h2>
+                        </div>
+                        <p class="font-bold text-gray-700 text-sm mb-4">
+                            <code>class</code> 是畫藍圖。<code>Valves</code> 是「設定面板」。<br>
+                            括號 <code>(BaseModel)</code> 代表這張藍圖是<strong>「以品管局的表單為基礎來畫的」</strong>，自帶防呆檢查功能！
+                        </p>
+                        
+                        <!-- 💡 廠長秘訣 -->
+                        <div class="bg-blue-50 border-2 border-blue-300 rounded-lg p-3 mb-4">
+                            <h4 class="text-blue-800 font-black text-sm mb-1"><i class="fa-solid fa-lightbulb text-yellow-500"></i> 廠長秘訣：為何不用普通字典？</h4>
+                            <p class="text-xs font-bold text-gray-700">用 Class 畫藍圖最大的好處是<strong>「有說明書」</strong>！未來你在寫程式時，只要打出 <code>valves.</code>，編輯器就會自動跳出 <code>nickname</code> 讓你選，不怕拼錯字！</p>
+                        </div>
+
+                        <div class="bg-gray-900 text-green-400 p-3 rounded-xl font-mono text-xs border-2 border-gray-700">
+                            <span class="text-yellow-400 font-bold">class</span> <span class="text-blue-300 font-bold">Valves</span>(BaseModel):
+                        </div>
+                    </div>
+
+                    <!-- 欄位設定 -->
+                    <div class="bg-white p-6 rounded-2xl comic-border relative">
+                        <div class="jargon-tag">🏷️ 型別提示與預設值</div>
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-12 h-12 bg-orange-100 border-4 border-gray-900 rounded-full flex items-center justify-center text-2xl font-black text-orange-600"><i class="fa-solid fa-toggle-on"></i></div>
+                            <h2 class="text-xl font-black">面板按鈕與出廠預設</h2>
+                        </div>
+                        <p class="font-bold text-gray-700 text-sm mb-4">
+                            在藍圖裡，廠長設計了一個叫 <code>nickname</code> 的輸入框。<br>
+                            <code>: str</code> 規定這裡<strong>只能填純文字</strong>！<br>
+                            <code>= "xxxxx"</code> 設定框框的<strong>出廠預設值</strong>是 xxxxx。
+                        </p>
+                        <div class="bg-gray-900 text-green-400 p-4 rounded-xl font-mono text-sm border-2 border-gray-700 leading-relaxed mt-auto">
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-gray-400"># 欄位名稱 : 型別限制 = 預設值</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;nickname<span class="text-gray-400">: str =</span> <span class="text-pink-400">"xxxxx"</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 第三站：打造實體與讀取 -->
+            <section class="bg-emerald-50 p-6 md:p-10 rounded-3xl border-4 border-gray-900 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)]">
+                <div class="station-header bg-emerald-500 transform -rotate-1">
+                    ⚙️ 第三站：打造實體機台與讀取數值
+                </div>
+
+                <div class="bg-white p-6 md:p-8 rounded-2xl comic-border relative mt-4">
+                    <div class="jargon-tag">🏷️ 實例化與屬性存取</div>
+                    <div class="flex flex-col md:flex-row gap-8 items-start">
+                        <div class="md:w-1/2 space-y-6">
+                            <div>
+                                <h2 class="text-xl font-black mb-2 flex items-center gap-2"><i class="fa-solid fa-hammer text-emerald-600"></i> 1. 造出實體面板 (大小寫不同)</h2>
+                                <p class="font-bold text-gray-700 text-sm bg-emerald-50 p-3 rounded-lg border border-emerald-200">
+                                    藍圖只是紙上談兵。<br>
+                                    <code>Valves()</code> (大寫並加上啟動按鈕) 代表：<strong>工廠照著藍圖，造出了一塊實體設定面板！</strong><br>
+                                    <code>valves =</code> (小寫) 是把這塊面板貼上變數貼紙。
+                                </p>
+                            </div>
+                            
+                            <!-- 🚨 災難現場 -->
+                            <div class="border-2 border-red-500 rounded-lg p-3 bg-red-50">
+                                <h4 class="text-red-700 font-black text-sm mb-1"><i class="fa-solid fa-triangle-exclamation"></i> 工廠災難現場：忘記加括號</h4>
+                                <p class="text-xs font-bold text-gray-700">如果你寫成 <code>valves = Valves</code> (沒有括號)，你只是「把紙本藍圖傳給別人」，並沒有造出實體機器！後面要讀取數值時就會大崩潰！</p>
+                            </div>
+
+                            <div>
+                                <h2 class="text-xl font-black mb-2 flex items-center gap-2"><i class="fa-solid fa-eye text-emerald-600"></i> 2. 讀取面板設定值</h2>
+                                <p class="font-bold text-gray-700 text-sm bg-emerald-50 p-3 rounded-lg border border-emerald-200">
+                                    <code>valves.nickname</code> 中間的 <strong class="text-red-500 text-lg">.</strong> 代表<strong>「查看專屬屬性」</strong>。就像廠長湊近看面板上 nickname 標籤顯示的文字。
+                                </p>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2 bg-gray-900 rounded-xl p-4 border-4 border-gray-800 w-full h-full flex flex-col justify-center">
+                            <pre class="text-green-400 font-mono text-sm md:text-base whitespace-pre-wrap leading-relaxed">
+<span class="text-gray-400"># 🔨 根據藍圖 Valves() 造出實體</span>
+<span class="text-gray-400"># 並把它賦值給變數 valves (小寫)</span>
+<span class="text-orange-300">valves</span> <span class="text-pink-500 font-black">=</span> <span class="text-blue-300">Valves</span>()
+
+<span class="text-gray-400"># 👁️ 廠長上前查看實體面板上的 nickname</span>
+<span class="text-orange-300">valves</span><span class="text-yellow-400 font-black text-lg">.</span>nickname
+
+<span class="text-gray-400"># 🖨️ 此時畫面上會輸出出廠預設值：</span>
+<span class="text-gray-500">'xxxxx'</span>
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Buttons -->
+            <div class="flex justify-end mt-12">
+                <a href="chapter4.html" class="inline-flex items-center gap-3 bg-gray-900 text-yellow-400 font-black text-lg px-8 py-4 rounded-2xl border-4 border-gray-900 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all">
+                    前往下一課：Telegram 實戰篇 <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- 共用頁尾 (Footer) -->
+    <footer class="bg-gray-900 text-white py-8 border-t-4 border-gray-900 mt-auto">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col items-center justify-center gap-4">
+            
+            <p class="text-yellow-400 font-black text-lg"><i class="fa-solid fa-industry"></i> 程式碼工廠 Python 新手村</p>
+            
+            <!-- Buy Me A Coffee Button -->
+            <a href="https://buymeacoffee.com/taurus.lhw" target="_blank" rel="noopener noreferrer" class="transform hover:-translate-y-1 hover:scale-105 transition-all duration-200">
+                <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" class="h-10 w-auto rounded-lg shadow-lg">
+            </a>
+
+            <p class="text-gray-500 font-bold font-mono text-xs">made by liang.hw @2026</p>
+            
+        </div>
+    </footer>
+
+</body>
+</html>
