@@ -16,19 +16,22 @@
 ### 🗺️ 課程架構與大綱
 本專案包含四大核心關卡，採用「由淺入深、由內而外」的漸進式設計：
 
-* 🧰 **[第 1 課：基礎工具箱 (chapter1.html)](chapter1.html)**
+* 🏠 **[首頁：進入 Python 新手村大廳](https://taurus-lhw.github.io/Python-learn/index.html)**
+  * **學習目標**：了解課程架構與工廠化學習法的核心精神。
+
+* 🧰 **[第 1 課：基礎工具箱](https://taurus-lhw.github.io/Python-learn/chapter1.html)**
   * **學習目標**：掌握 Python 的基本物料與收納邏輯。
   * **核心比喻**：`body` (物流貨車) / `=` (貼標籤) / `[]` (排隊的置物櫃) / `.get()` (分類標籤箱與安全取貨窗口) / `if/else, return` (自動分流輸送帶與強制下班鍵)。
 
-* 🚀 **[第 2 課：Action 進化史 (chapter2.html)](chapter2.html)**
+* 🚀 **[第 2 課：Action 進化史](https://taurus-lhw.github.io/Python-learn/chapter2.html)**
   * **學習目標**：看懂 `def action()` 函式骨架，理解程式碼優化的真實思維。
   * **核心比喻**：`async def` (聘請不卡單的聰明員工)。帶領學員看見傳統代工的災難現場，並導入 `__event_emitter__` (大廳廣播器) 進行升級。
 
-* ⚙️ **[第 3 課：控制閥與品管局 (chapter3.html)](chapter3.html)**
+* ⚙️ **[第 3 課：控制閥與品管局](https://taurus-lhw.github.io/Python-learn/chapter3.html)**
   * **學習目標**：理解物件導向 (OOP) 基礎與 Pydantic 資料驗證。
   * **核心比喻**：`BaseModel` (國家嚴格品管局) / `class Valves:` (設定面板的設計藍圖) / `Field` (面板上的防呆說明書)。
 
-* ✈️ **[第 4 課：Telegram 實戰篇 (chapter4.html)](chapter4.html)**
+* ✈️ **[第 4 課：Telegram 實戰篇](https://taurus-lhw.github.io/Python-learn/chapter4.html)**
   * **學習目標**：跨出工廠，學會與外部 API 連線及處理非同步高階語法。
   * **核心比喻**：`self` (機器人的自我意識) / `try...except` (吸收衝擊的工安防護罩) / `await` (對講機呼叫並等待) / `aiohttp` (限時專屬合約物流車隊)。
 
@@ -57,19 +60,22 @@ We break away from boring traditional explanations of "variables, loops, and OOP
 ### 🗺️ Course Structure
 This project features four core levels, progressively designed from the inside out:
 
-* 🧰 **[Chapter 1: The Basic Toolbox (chapter1.html)](chapter1.html)**
+* 🏠 **[Home: Python Beginner's Village Lobby](https://taurus-lhw.github.io/Python-learn/index.html)**
+  * **Goal**: Understand the course structure and the core philosophy of the Factory Analogy Method.
+
+* 🧰 **[Chapter 1: The Basic Toolbox](https://taurus-lhw.github.io/Python-learn/chapter1.html)**
   * **Goal**: Master basic Python materials and storage logic.
   * **Analogy**: `body` (Delivery Truck) / `=` (Applying Labels) / `[]` (Waiting Lockers) / `.get()` (Sorting Bins & Safe Pickup Window).
 
-* 🚀 **[Chapter 2: The Evolution of Action (chapter2.html)](chapter2.html)**
+* 🚀 **[Chapter 2: The Evolution of Action](https://taurus-lhw.github.io/Python-learn/chapter2.html)**
   * **Goal**: Understand the `def action()` structure and code refactoring mindset.
   * **Analogy**: `async def` (Hiring smart, non-blocking workers). We analyze the "disaster scenes" of old methods and upgrade using `__event_emitter__` (Lobby Broadcaster).
 
-* ⚙️ **[Chapter 3: Control Valves & Quality Assurance (chapter3.html)](chapter3.html)**
+* ⚙️ **[Chapter 3: Control Valves & Quality Assurance](https://taurus-lhw.github.io/Python-learn/chapter3.html)**
   * **Goal**: Understand OOP basics and Pydantic data validation.
   * **Analogy**: `BaseModel` (Strict National QA Bureau) / `class Valves:` (Control Panel Blueprints) / `Field` (Foolproof Instruction Manuals).
 
-* ✈️ **[Chapter 4: Telegram Real-World Combat (chapter4.html)](chapter4.html)**
+* ✈️ **[Chapter 4: Telegram Real-World Combat](https://taurus-lhw.github.io/Python-learn/chapter4.html)**
   * **Goal**: Step out of the factory to connect with external APIs using high-level async syntax.
   * **Analogy**: `self` (Robot's self-awareness) / `try...except` (Safety Forcefield) / `await` (Radio walkie-talkie wait) / `aiohttp` (Exclusive async logistics fleet).
 
