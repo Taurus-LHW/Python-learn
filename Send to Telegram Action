@@ -1,0 +1,160 @@
+"""
+title: Send to Telegram Action
+author: Assistant
+version: 0.4.0
+requirements: aiohttp, pydantic
+"""
+
+from pydantic import BaseModel, Field
+from typing import Optional
+import aiohttp
+import re
+
+# Pre-compile regex patterns for performance
+THINK_PATTERN = re.compile(r'<think>.*?</think>\n*', flags=re.DOTALL)
+DETAILS_PATTERN = re.compile(r'<details[^>]*>.*?</details>\n*', flags=re.DOTALL)
+
+
+class Action:
+    class Valves(BaseModel):
+        bot_token: str = Field(
+            default="", description="Telegram Bot Token (obtained from @BotFather)"
+        )
+        chat_id: str = Field(
+            default="", description="Telegram Chat ID (obtained from @userinfobot)"
+        )
+
+    def __init__(self):
+        self.valves = self.Valves()
+
+    async def action(
+        self,
+        body: dict,
+        __user__=None,
+        __event_emitter__=None,
+        __event_call__=None,
+    ) -> Optional[dict]:
+        # Extract the last message from the conversation
+        messages = body.get("messages", [])
+        if not messages:
+            return None
+
+        last_message = messages[-1]
+        message_content = last_message.get("content", "")
+
+        # Clean up reasoning and thinking blocks
+        message_content = THINK_PATTERN.sub('', message_content)
+        message_content = DETAILS_PATTERN.sub('', message_content)
+        
+        # --- NEW: Convert Standard Markdown to Telegram Markdown ---
+        # 1. Change list asterisks to hyphens to avoid bold parser conflicts
+        message_content = re.sub(r'(?m)^\s*\*\s+', '- ', message_content)
+        # 2. Convert standard bold (**text**) to Telegram bold (*text*)
+        message_content = re.sub(r'\*\*(.*?)\*\*', r'*\1*', message_content)
+        # 3. Convert headers (# Header) to bold (*Header*) since Telegram V1 lacks header support
+        message_content = re.sub(r'(?m)^#+\s+(.*)', r'*\1*', message_content)
+        
+        # Clean up leading/trailing whitespaces
+        message_content = message_content.strip()
+
+        if not message_content:
+            return None
+
+        # Validate configuration
+        if not self.valves.bot_token or not self.valves.chat_id:
+            if __event_emitter__:
+                await __event_emitter__(
+                    {
+                        "type": "message",
+                        "data": {
+                            "content": "Action failed: Telegram Bot Token or Chat ID is not configured in Valves."
+                        },
+                    }
+                )
+            return None
+
+        # Emit initial loading status
+        if __event_emitter__:
+            await __event_emitter__(
+                {
+                    "type": "status",
+                    "data": {"description": "Sending message to Telegram...", "done": False},
+                }
+            )
+
+        try:
+            api_url = f"https://api.telegram.org/bot{self.valves.bot_token}/sendMessage"
+
+            # Truncate message if it exceeds Telegram's 4096 character limit
+            if len(message_content) > 4000:
+                message_content = (
+                    message_content[:4000] + "...\n\n(Truncated due to length limit)"
+                )
+
+            # Format the sender's name
+            sender_name = __user__.get("name", "Unknown User") if __user__ else "User"
+            
+            # Use * for bolding the sender name header in Telegram Markdown
+            formatted_msg = f"*Message from {sender_name}:*\n\n{message_content}"
+
+            payload = {
+                "chat_id": self.valves.chat_id,
+                "text": formatted_msg,
+                "parse_mode": "Markdown"
+            }
+
+            # Use native async HTTP client
+            async with aiohttp.ClientSession() as session:
+                async with session.post(api_url, json=payload, timeout=10) as response:
+                    result = await response.json()
+                    status_code = response.status
+
+                    # Fallback mechanism: 
+                    # If Telegram rejects the message due to invalid Markdown syntax (HTTP 400),
+                    # retry sending as plain text to ensure delivery.
+                    if status_code == 400 and result.get("error_code") == 400:
+                        del payload["parse_mode"]
+                        async with session.post(api_url, json=payload, timeout=10) as fallback_response:
+                            result = await fallback_response.json()
+                            status_code = fallback_response.status
+
+            if __event_emitter__:
+                if status_code == 200 and result.get("ok"):
+                    await __event_emitter__(
+                        {
+                            "type": "status",
+                            "data": {"description": "Message sent to Telegram successfully!", "done": True},
+                        }
+                    )
+                else:
+                    error_desc = result.get('description', 'Unknown error')
+                    await __event_emitter__(
+                        {
+                            "type": "message",
+                            "data": {
+                                "content": f"Telegram API Error: {error_desc}"
+                            },
+                        }
+                    )
+                    await __event_emitter__(
+                        {
+                            "type": "status",
+                            "data": {"description": "Failed to send to Telegram.", "done": True},
+                        }
+                    )
+        except Exception as e:
+            if __event_emitter__:
+                await __event_emitter__(
+                    {
+                        "type": "message",
+                        "data": {"content": f"Action execution error: {str(e)}"},
+                    }
+                )
+                await __event_emitter__(
+                    {
+                        "type": "status",
+                        "data": {"description": "An error occurred.", "done": True},
+                    }
+                )
+
+        return None
